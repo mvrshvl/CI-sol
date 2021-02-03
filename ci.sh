@@ -17,8 +17,9 @@ then
 elif [ "$GITHUB_ACTIONS" != "" ];
 then
   service="github"
-  main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-  echo "Main Branch" "$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
+  remote=$(git config --get remote.origin.url)
+  main_branch=$(git remote show "$remote" | grep "HEAD branch" | cut -d ":" -f 2)
+  echo "Main Branch" "$main_branch"
   branch="${GITHUB_REF#refs/heads/}"
   pre_commit=""
 
