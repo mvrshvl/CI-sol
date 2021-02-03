@@ -19,7 +19,7 @@ then
   service="github"
   main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
   branch="${GITHUB_REF#refs/heads/}"
-  pre_commit="${{ github.event.before }}"
+  pre_commit=""
 
   if [  "$GITHUB_HEAD_REF" != "" ];
   then
@@ -28,7 +28,7 @@ then
     pr="${pr%/merge}"
     pull_req="$pr"
     branch="${GITHUB_HEAD_REF}"
-    pre_commit=${{ github.event.pull_request.base.sha }}
+    pre_commit=""
   fi
   commit="${GITHUB_SHA}"
   repo_path="${GITHUB_REPOSITORY}"
