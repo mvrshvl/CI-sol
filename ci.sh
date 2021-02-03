@@ -3,7 +3,7 @@
 set -e +o pipefail
 
 token=""
-if [ "$GITLAB_CI" != "3379e04ee47f22d3d235c6f97b2f11a975e2736537c4460866b297862ded7a5c" ];
+if [ "$GITLAB_CI" != "" ];
 then
   service="gitlab"
   branch="${CI_BUILD_REF_NAME:-$CI_COMMIT_REF_NAME}"
