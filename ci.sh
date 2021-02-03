@@ -19,9 +19,8 @@ then
   service="github"
   remote=$(git config --get remote.origin.url)
   main_branch=$(git remote show "$remote" | grep "HEAD branch" | cut -d ":" -f 2)
-  echo "Main Branch" "$main_branch"
   branch="${GITHUB_REF#refs/heads/}"
-  pre_commit=""
+  pre_commit="${GITHUB_BASE_REF}"
 
   if [  "$GITHUB_HEAD_REF" != "" ];
   then
@@ -29,7 +28,6 @@ then
     pr="${pr%/merge}"
     pull_req="$pr"
     branch="${GITHUB_HEAD_REF}"
-    pre_commit=""
   fi
   commit="${GITHUB_SHA}"
   repo_path="${GITHUB_REPOSITORY}"
