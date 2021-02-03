@@ -18,12 +18,12 @@ elif [ "$GITHUB_ACTIONS" != "" ];
 then
   service="github"
   main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+  echo "Main Branch" "$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
   branch="${GITHUB_REF#refs/heads/}"
   pre_commit=""
 
   if [  "$GITHUB_HEAD_REF" != "" ];
   then
-    # PR refs are in the format: refs/pull/7/merge
     pr="${GITHUB_REF#refs/pull/}"
     pr="${pr%/merge}"
     pull_req="$pr"
@@ -33,7 +33,6 @@ then
   commit="${GITHUB_SHA}"
   repo_path="${GITHUB_REPOSITORY}"
 
-  # actions/checkout runs in detached HEAD
   mc=
   if [ -n "$pr" ] && [ "$pr" != false ];
   then
